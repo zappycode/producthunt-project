@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-2">
+    <img src="{{ product.icon.url }}" class="img-fluid" />
+  </div>
+  <div class="col-10">
+    <a href="{{ product.url }}"><h1>{{ product.title }}</h1></a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-8">
+    <img src="{{ product.image.url }}" class="img-fluid" />
+  </div>
+  <div class="col-4">
+    <a href="javascript:{document.getElementById('upvote').submit()}"><button class="btn btn-primary btn-lg btn-block"><span class="oi oi-caret-top"></span> Upvote {{ product.votes_total }}</button></a>
+  </div>
+</div>
+
+<div class="row pt-2">
+  <div class="col-4">
+    <h4><span class="oi oi-magnifying-glass"></span> Hunted by {{ product.hunter.username }}</h4>
+  </div>
+  <div class="col-4 text-right">
+    <h4><span class="oi oi-clock"></span> {{ product.pub_date_pretty }}</h4>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-8">
+    <p>{{ product.body }}</p>
+  </div>
+</div>
+
+<form id="upvote" method="POST" action="{% url 'upvote' product.id %}">
+  {% csrf_token%}
+  <input type="hidden">
+</form>
+
+{% endblock %}
